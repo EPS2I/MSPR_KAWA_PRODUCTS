@@ -1,10 +1,26 @@
+version: '3'
 services:
-  mysql:
-    image: 'mysql:latest'
-    environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+
+  #  mspr_kawa_nginx:
+  #    image: mspr_kawa_nginx
+  #    ports:
+  #      - "8082:8082"
+  #    volumes:
+  #      - ./config/nginx.conf:/etc/nginx/nginx.conf
+  #    depends_on:
+  #      - mspr_kawa_keycloak
+  #      - mspr_kawa_clients
+
+  mspr_kawa_products:
+    image: mspr_kawa_products
+    container_name: mspr_kawa_products
     ports:
-      - '3306'
+      - "8080:8080"
+    depends_on:
+      - mspr_kawa_keycloak
+
+  mspr_kawa_keycloak:
+    image: mspr_kawa_keycloak
+    container_name: mspr_kawa_keycloak
+    ports:
+      - "8081:8081"

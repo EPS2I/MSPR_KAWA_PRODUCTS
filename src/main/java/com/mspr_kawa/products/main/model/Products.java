@@ -2,6 +2,7 @@ package com.mspr_kawa.products.main.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,9 @@ public class Products {
     @Id
     @UuidGenerator
     private UUID id;
+    @NotNull
     private String name;
+    @NotNull
     private int stock;
 
     @OneToOne(cascade = CascadeType.ALL)

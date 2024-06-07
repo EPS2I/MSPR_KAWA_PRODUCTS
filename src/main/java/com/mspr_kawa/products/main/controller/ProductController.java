@@ -12,7 +12,7 @@ import java.util.UUID;
 public class ProductController {
     private final ProductService productService;
 
-@Autowired
+    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -36,8 +36,14 @@ public class ProductController {
     }
 
     // Endpoint pour créer un nouveau produit
-    @PostMapping
+    @PostMapping("/products")
     public ResponseEntity<Products> createProduct(@RequestBody Products product) {
+        if (product.getName() == null || product.getName().isEmpty()) {
+            throw new IllegalArgumentException("name is required");
+        }
+        if (product.getStock() <= 0) {
+            throw new IllegalArgumentException("Stock must be greater than zero");
+        }
         Products newProduct = productService.createProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
     }
@@ -63,4 +69,5 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }
