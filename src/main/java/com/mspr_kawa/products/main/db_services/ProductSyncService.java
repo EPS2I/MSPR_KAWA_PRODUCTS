@@ -1,6 +1,6 @@
 package com.mspr_kawa.products.main.db_services;
 
-import com.mspr_kawa.products.main.model.Products;
+import com.mspr_kawa.products.main.model.Product;
 import com.mspr_kawa.products.main.security.KeycloakConfigCustom;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -34,14 +34,14 @@ public class ProductSyncService {
         this.keycloakConfigCustom = keycloakConfigCustom;
     }
 
-    public List<Products> fetchProductsFromMainDb() throws IOException {
+    public List<Product> fetchProductsFromMainDb() throws IOException {
         String apiBaseUrl = "http://" + this.apiDbUrl + "/products";
         String accessToken = keycloakConfigCustom.getAccessToken();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.set("Accept", "application/json");
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Products[]> response = restTemplate.exchange(apiBaseUrl, HttpMethod.GET, entity, Products[].class);
+        ResponseEntity<Product[]> response = restTemplate.exchange(apiBaseUrl, HttpMethod.GET, entity, Product[].class);
         if (response.getStatusCode().is2xxSuccessful()) {
             return List.of(response.getBody());
         } else {
@@ -49,10 +49,10 @@ public class ProductSyncService {
         }
     }
 
-    public void syncProductsToMainDb(List<Products> products) {
+    public void syncProductsToMainDb(List<Product> products) {
         String apiBaseUrl = "http://" + this.apiDbUrl + "/products";
-        for (Products product : products) {
-            restTemplate.postForEntity(apiBaseUrl, product, Products.class);
+        for (Product product : products) {
+            restTemplate.postForEntity(apiBaseUrl, product, Product.class);
         }
     }
 }

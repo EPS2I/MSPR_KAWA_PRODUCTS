@@ -1,6 +1,6 @@
 package com.mspr_kawa.products.main.db_services;
 
-import com.mspr_kawa.products.main.model.Products;
+import com.mspr_kawa.products.main.model.Product;
 import com.mspr_kawa.products.main.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,11 +22,11 @@ public class ProductSyncScheduler {
 
     @Scheduled(fixedRate = 3000)  // Sync every 3 seconds
     public void syncProducts() {
-        List<Products> products = this.fetchProductsFromSQLite();
+        List<Product> products = this.fetchProductsFromSQLite();
         productSyncService.syncProductsToMainDb(products);
     }
 
-    private List<Products> fetchProductsFromSQLite() {
+    private List<Product> fetchProductsFromSQLite() {
         return this.productService.getAllProducts();
     }
 }

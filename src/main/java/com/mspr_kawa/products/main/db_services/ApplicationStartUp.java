@@ -1,6 +1,6 @@
 package com.mspr_kawa.products.main.db_services;
 
-import com.mspr_kawa.products.main.model.Products;
+import com.mspr_kawa.products.main.model.Product;
 import com.mspr_kawa.products.main.repository.ProductsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class ApplicationStartUp {
     public void onApplicationEvent() throws IOException {
         logger.info("Application started, fetching products from main db...");
         try {
-            List<Products> productList = productSyncService.fetchProductsFromMainDb();
+            List<Product> productList = productSyncService.fetchProductsFromMainDb();
             productRepository.saveAll(productList);
             logger.info("Fetched and saved {} products from main db.", productList.size());
         } catch (Exception e) {

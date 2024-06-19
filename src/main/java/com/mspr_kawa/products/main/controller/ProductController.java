@@ -1,5 +1,5 @@
 package com.mspr_kawa.products.main.controller;
-import com.mspr_kawa.products.main.model.Products;
+import com.mspr_kawa.products.main.model.Product;
 import com.mspr_kawa.products.main.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,15 +19,15 @@ public class ProductController {
 
     // Endpoint pour récupérer une liste de produits
     @GetMapping
-    public ResponseEntity<List<Products>> getAllProducts() {
-        List<Products> products = productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
     // Endpoint pour récupérer un produit par son identifiant
     @GetMapping("/{id}")
-    public ResponseEntity<Products> getProductById(@PathVariable UUID id) {
-        Products product = productService.getProductById(id);
+    public ResponseEntity<Product> getProductById(@PathVariable UUID id) {
+        Product product = productService.getProductById(id);
         if (product != null) {
             return ResponseEntity.ok(product);
         } else {
@@ -37,21 +37,21 @@ public class ProductController {
 
     // Endpoint pour créer un nouveau produit
     @PostMapping("/products")
-    public ResponseEntity<Products> createProduct(@RequestBody Products product) {
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         if (product.getName() == null || product.getName().isEmpty()) {
             throw new IllegalArgumentException("name is required");
         }
         if (product.getStock() <= 0) {
             throw new IllegalArgumentException("Stock must be greater than zero");
         }
-        Products createdProduct = productService.createProduct(product);
+        Product createdProduct = productService.createProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     // Endpoint pour mettre à jour un produit existant
     @PutMapping("/{id}")
-    public ResponseEntity<Products> updateProduct(@PathVariable UUID id, @RequestBody Products product) {
-        Products updatedProduct = productService.updateProduct(id, product);
+    public ResponseEntity<Product> updateProduct(@PathVariable UUID id, @RequestBody Product product) {
+        Product updatedProduct = productService.updateProduct(id, product);
         if (updatedProduct != null) {
             return ResponseEntity.ok(updatedProduct);
         } else {

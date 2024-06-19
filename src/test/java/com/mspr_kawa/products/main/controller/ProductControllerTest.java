@@ -1,9 +1,7 @@
 package com.mspr_kawa.products.main.controller;
 
-import com.mspr_kawa.products.main.controller.ProductController;
-import com.mspr_kawa.products.main.model.Products;
+import com.mspr_kawa.products.main.model.Product;
 import com.mspr_kawa.products.main.service.ProductService;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,10 +10,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.Assert.assertThrows;
@@ -37,14 +33,14 @@ class ProductControllerTest {
 
     @Test
     void testCreateProduct() {
-        Products product = new Products();
+        Product product = new Product();
         product.setName("Cappuccino");
         product.setStock(10);
 
-        Products createdProduct = new Products();
+        Product createdProduct = new Product();
         when(productService.createProduct(product)).thenReturn(createdProduct);
 
-        ResponseEntity<Products> response = productController.createProduct(product);
+        ResponseEntity<Product> response = productController.createProduct(product);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(createdProduct, response.getBody());
@@ -52,7 +48,7 @@ class ProductControllerTest {
 
     @Test
     void testCreateProduct_MissingName() {
-        Products product = new Products();
+        Product product = new Product();
         product.setStock(10);
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -64,7 +60,7 @@ class ProductControllerTest {
 
     @Test
     void testCreateProduct_MissingStock() {
-        Products product = new Products();
+        Product product = new Product();
         product.setName("Cappuccino");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -76,13 +72,13 @@ class ProductControllerTest {
 
     @Test
     void getAllProductsTest() {
-        Products product1 = new Products();
-        Products product2 = new Products();
-        List<Products> productList = Arrays.asList(product1, product2);
+        Product product1 = new Product();
+        Product product2 = new Product();
+        List<Product> productList = Arrays.asList(product1, product2);
 
         when(productService.getAllProducts()).thenReturn(productList);
 
-        ResponseEntity<List<Products>> response = productController.getAllProducts();
+        ResponseEntity<List<Product>> response = productController.getAllProducts();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(productList, response.getBody());
@@ -92,9 +88,9 @@ class ProductControllerTest {
     @Test
     void getProductByIdTest() {
         UUID productId = UUID.randomUUID();
-        Products  product =new Products();
+        Product product =new Product();
         when(productService.getProductById(productId)).thenReturn(product);
-        ResponseEntity<Products> response = productController.getProductById(productId);
+        ResponseEntity<Product> response = productController.getProductById(productId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(product,response.getBody());
 
@@ -103,7 +99,7 @@ class ProductControllerTest {
     void testGetCustomerByIdNotFound() {
         UUID productId = UUID.randomUUID();
         when(productService.getProductById(productId)).thenReturn(null);
-        ResponseEntity<Products> response = productController.getProductById(productId);
+        ResponseEntity<Product> response = productController.getProductById(productId);
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
 
     }
@@ -111,11 +107,11 @@ class ProductControllerTest {
     @Test
     void testUpdateProduct() {
         UUID productId = UUID.randomUUID();
-        Products product = new Products();
-        Products updatedProduct = new Products();
+        Product product = new Product();
+        Product updatedProduct = new Product();
         when(productService.updateProduct(productId, product)).thenReturn(updatedProduct);
 
-        ResponseEntity<Products> response = productController.updateProduct(productId, product);
+        ResponseEntity<Product> response = productController.updateProduct(productId, product);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(updatedProduct, response.getBody());
@@ -123,10 +119,10 @@ class ProductControllerTest {
     @Test
     void testUpdateProductNotFound() {
         UUID productId = UUID.randomUUID();
-        Products product = new Products();
+        Product product = new Product();
         when(productService.updateProduct(productId, product)).thenReturn(null);
 
-        ResponseEntity<Products> response = productController.updateProduct(productId, product);
+        ResponseEntity<Product> response = productController.updateProduct(productId, product);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
