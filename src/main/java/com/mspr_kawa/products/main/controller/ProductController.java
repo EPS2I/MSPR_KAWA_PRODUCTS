@@ -44,8 +44,8 @@ public class ProductController {
         if (product.getStock() <= 0) {
             throw new IllegalArgumentException("Stock must be greater than zero");
         }
-        Products newProduct = productService.createProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+        Products createdProduct = productService.createProduct(product);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     // Endpoint pour mettre à jour un produit existant
