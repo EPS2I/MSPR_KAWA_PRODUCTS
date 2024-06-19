@@ -1,26 +1,11 @@
 version: '3'
 services:
 
-  #  mspr_kawa_nginx:
-  #    image: mspr_kawa_nginx
-  #    ports:
-  #      - "8082:8082"
-  #    volumes:
-  #      - ./config/nginx.conf:/etc/nginx/nginx.conf
-  #    depends_on:
-  #      - mspr_kawa_keycloak
-  #      - mspr_kawa_clients
-
-  mspr_kawa_products:
-    image: mspr_kawa_products
-    container_name: mspr_kawa_products
+  mspr-kawa-products:
+    build: .
+    image: mspr-kawa-products
+    container_name: mspr-kawa-products
     ports:
       - "8080:8080"
     depends_on:
       - mspr_kawa_keycloak
-
-  mspr_kawa_keycloak:
-    image: mspr_kawa_keycloak
-    container_name: mspr_kawa_keycloak
-    ports:
-      - "8081:8081"
