@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     // Endpoint pour créer un nouveau produit
-    @PostMapping("/products")
+    @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         if (product.getName() == null || product.getName().isEmpty()) {
             throw new IllegalArgumentException("name is required");
