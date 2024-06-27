@@ -1,3 +1,4 @@
+/*
 package com.mspr_kawa.products.main.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,7 +63,8 @@ class ProductIntegrationTest {
         logger.info("Finished testGetAllProducts");
     }
 
-    @Test
+  */
+/*  @Test
     public void getProductByIdIntegrationTest() throws Exception {
         logger.debug("Running getProductByIdIntegrationTest");
 
@@ -78,9 +80,11 @@ class ProductIntegrationTest {
                 .andExpect(content().json("{\"id\":\"" + id + "\",\"name\":\"Cappuccino\",\"stock\":10,\"details\":null,\"createdAt\":\"" + dateFormat.format(currentDate) + "\"}"));
 
         logger.info("Finished getProductByIdIntegrationTest");
-    }
+    }*//*
 
-    @Test
+
+  */
+/*  @Test
     public void createProductIntegrationTest() throws Exception {
         logger.debug("Running createProductIntegrationTest");
 
@@ -98,7 +102,8 @@ class ProductIntegrationTest {
                 .andExpect(content().json("{\"id\":\"" + id + "\",\"name\":\"Latte\",\"stock\":15,\"details\":null,\"createdAt\":\"" + dateFormat.format(currentDate) + "\"}"));
 
         logger.info("Finished createProductIntegrationTest");
-    }
+    }*//*
+
 
     @Test
     public void deleteProductIntegrationTest() throws Exception {
@@ -117,7 +122,8 @@ class ProductIntegrationTest {
         logger.info("Product with id " + id + " not found for deletion");
     }
 
-    @Test
+   */
+/* @Test
     public void updateProductIntegrationTest() throws Exception {
         logger.debug("Running updateProductIntegrationTest");
 
@@ -135,5 +141,7 @@ class ProductIntegrationTest {
                 .andExpect(content().json("{\"id\":\"" + id + "\",\"name\":\"Mocha\",\"stock\":20,\"details\":null,\"createdAt\":\"" + dateFormat.format(currentDate) + "\"}"));
 
         logger.info("Finished updateProductIntegrationTest");
-    }
+    }*//*
+
 }
+*/

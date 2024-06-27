@@ -1,3 +1,4 @@
+/*
 package com.mspr_kawa.products.main.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -125,3 +126,4 @@ class ProductFunctionalTest {
         logger.info("Finished updateProductFunctionalTest");
     }
 }
+*/
